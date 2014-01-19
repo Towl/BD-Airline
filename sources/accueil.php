@@ -1,8 +1,6 @@
 <?php
-
-include_once('modele/connexion_sql.php');
-
-if (!isset($_GET['section']) OR $_GET['section'] == 'index')
-{
-    include_once('controleur/accueil_controleur.php');
-}
+include_once($_SERVER['CONTEXT_DOCUMENT_ROOT'].'/sources/controleur/PageClientAccueilControler.class.php');
+$controler = new PageClientAccueilControler();
+$pageAccueilClient = $controler->getPage();
+$pageAccueilClient->display();
+?>

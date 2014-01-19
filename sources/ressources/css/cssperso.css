@@ -1,0 +1,19 @@
+body {
+	padding-top: 60px;
+}
+
+div .article {
+	position: relative;
+	margin: 0 0 60px 0;
+	padding: 50px 55px;
+	background-color: white;
+	border: 5px solid #EFEFEF;
+	box-shadow: 2px 2px 2px #B7B7B7;
+	-webkit-box-shadow: 2px 2px 2px #B7B7B7;
+	-moz-box-shadow: 2px 2px 2px #B7B7B7;
+	-o-box-shadow: 2px 2px 2px #B7B7B7;
+}
+
+div .article a {
+	float : right;
+}
