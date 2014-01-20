@@ -19,13 +19,7 @@
 					<li><a href="#cdh">I. Le cahier des charges</a></li>
 					<li><a href="#modeleBD">II. Le modèle de base de donnée</a></li>
 					<li><a href="#architecture">III. L'architecture physiques et dimensionnement</a></li>
-					<li>
-						<a href="#application">IV. L'application serveur</a>
-						<ul class="nav subnav">
-							<li><a href="#public">a. Service publique</a></li>
-							<li><a href="#admin">b. Service administration</a></li>
-						</ul>
-					</li>
+					<li><a href="#application">IV. L'application serveur</a></li>
 					<li><a href="#conclusion">Conclusion</a></li>
 				</ul>
 			</div>
@@ -36,7 +30,7 @@
 			</div>
 			<div class="panel-content">
 				<div class="list-group livrables-content">
-					<a href="#" class="list-group-item">Modèle base de données</a>
+					<a href="src_rapport/diagrammeRelation.png" class="list-group-item">Modèle base de données</a>
 					<a href="sources/accueil.php" class="list-group-item">Service public</a>
 					<a href="sources/admin.php" class="list-group-item">Service administrateur</a>
 				</div>
@@ -54,7 +48,8 @@
 			<p>
 				Pour l'interface homme-machine de la base de donnée, nous utilisons conjointement pHp et HTML/CSS. Il est donc nécessaire d'avoir un
 				serveur web configuré pour pHp. Nous avons ainsi utilisé WAMP pour faciliter la configuration. Il faut de plus modifier un fichier php
-				pour pouvoir se connecter à la base de données. Ce fichier est situé dans le dossier /modele et est appelé connexion_sql.php.
+				pour pouvoir se connecter à la base de données. Ce fichier est situé dans le dossier "sources/modele" et est nommé "DBConnexion.class.php".
+				Les logins des différents utilisateurs sont hardcodés dans ce fichier (il n'y a pas d'interface de connexion dans l'application).
 			</p>
 			<h2 id="introduction">Introduction</h2>
 			<p>
@@ -66,6 +61,7 @@
 			<h2 id="cdh">I. Le cahier des charges</h2>
 			<p>
 					D'après le sujet, voici les éléments à prendre en compte dans notre base de données.
+			</p>
 					<blockquote>L'ensemble des employés se compose du personnel navigant et du personnel
 					au sol. Parmi le personnel navigant, on distingue les pilotes et les membres de
 					l'équipage (hôtesse, steward, etc.). Un employé est caractéerisée par un numéro
@@ -94,106 +90,151 @@
 					Un billet est repéré par son numéro. Il comporte une date d'émission et un prix.
 					Un billet référence un départ et un seul. On suppose aussi qu'un billet concerne
 					un client et un seul.</blockquote>
-					
+			<p>
 					Nous pouvons découper nos tâches en deux grandes catégories:
 					<ul><li>Le design et la création de la base de données </li>
 					    <li>La création d'une interface utilisateur pour exploiter notre base de données </li></ul>
 			</p>
-			<!--<div class="panel panel-default code-panel">
-				<div class="panel-heading">
-					<h3 class="panel-title">Image</h3>
-				</div>
-				<div class="panel-content">	
-					<div class="code-container">
-						<div class="scrolled-code codeXML">
-							<div class="codeJS">	
-								<span class="variable">POST</span> /~muller/cours/xrpc/server/smart-server.php HTTP/1.0<br/>
-								<span class="variable">Host:</span> tic01.tic.ec-lyon.fr<br/>
-								<span class="variable">User-Agent:</span> client artisanal<br/>
-								<span class="variable">Content-Type:</span> text/xml<br/>
-								<span class="variable">Content-Length:</span> 164<br/>
-								<span class="variable">Connection:</span> Close<br/>
-							</div>
-							<br/>
-							<span class="process-instruct">&lt;?</span>xml <span class="attribut">version</span>=<span class="valeur">"1.0"</span><span class="process-instruct">?&gt;</span><br/>
-							&lt;methodCall&gt;<br/>
-							&lt;methodName&gt;<span class="contenuTexte">departement.infos</span>&lt;/methodName&gt;<br/>
-							&lt;params&gt;<br/>
-							&lt;param&gt;<br/>
-							&lt;value&gt;<br/>
-							&lt;string&gt;<span class="contenuTexte">92</span>&lt;/string&gt;<br/>
-							&lt;/value&gt;<br/>
-							&lt;/param&gt;<br/>
-							&lt;/params&gt;<br/>
-							&lt;/methodCall&gt;<br/>
-						</div>
-					</div>
-				</div>
-			</div>-->
+			<h2 id="modeleBD">II. Le modèle de base de données</h2>
 			<p>
-				
+				La base de donnée a été construite en utilisant la technologie gratuite et open source de MySQL. Comme son nom l'indique
+				cette technologie est basée sur le principe des bases de données relationnelle et utilise SQL pour effectuer les requêtes.
+				De ce fait la conception de la BD pour l'application est d'abord passée par une étape de modélisation relationnelle. On a 
+				ainsi définit le diagramme relationnel suivant : <a href="src_rapport/diagrammeRelation.png">Diagramme relationnel</a>.
+				A partir de ce modèle, nous avons essayé de construire les tables correspondantes directement à l'aide de l'outil de conversion
+				fourni par MySQL. Cependant la conversion s'est mal passée et beaucoup de choses ont du être faites à la main.				
 			</p>
-			<h2 id="modele">II. Le modèle de base de données</h2>
 			<p>
-				
+				De plus, par manque de temps (ou mauvaise gestion), certaines fonctionnalités n'ont pas été intégrées dans l'application
+				finale. Celles-ci concernent notamment les Triggers permettant de remplir toutes les tables concernés par une requête particulière.
+				Ainsi certaines tables ne sont pas utilisées (les fonctionnalités côté application étant absentes). Néansmoins l'état actuel de la
+				base de donnée permet de s'apercevoir de ce qu'il est possible de faire et jusqu'où nous voulions aller.
 			</p>
 			<h2 id="architecture">III. Architecture physique et dimensionnement</h2>
 			<p>
-				
+				En s'appuyant sur nos expériences et nos connaissances, nous avons essayé de chiffrer
+				les frais de mises en place du système informatique remplissant le cahier des charges.
+			</p>
+			<p>
+				L'application publique devras respecter de forte contrainte sur la capacité à gérer un grand nombre de connexion et de requête
+				simultatnément. Il est possible que plusieurs serveurs différents soient nécessaires. Dans ce cas il est préférable de répartir
+				ces serveurs à travers le monde pour permettre une meilleure gestion des interactions avec les utilisateurs (meilleurs temps de réponse,...).
+				Cependant les frais de gestion d'un tel complexe informatique sont exorbitant.
+			</p>
+			<p>
+				D'autre part, dans la réalité les compagnies aériennes ne prennent plus en charge la réservation des billets d'avions.
+				Il existe des GDS (Global Distribution System) dont la vocation est la centralisation du système de réservation pour différentes
+				compagnies aériennes. Ces GDS servent d'intermédiaires entre les compagnies aériennes et leurs clients (agences de voyages,site internet, etc.).
+			</p>
+			<p>
+				Par conséquent, il serait plus intéressant d'opter pour un seul serveur de gestion des données administratives et matérielles. Celui-ci
+				devant assuré une conservation des données permanentes mais n'a pas un flux important de requêtes et de connexions à gérer. Le service
+				après vente aura également un rôle non négligeable dans le choix du vendeur puisqu'il est impératif que ce serveur soit fonctionnel
+				en permanence. Ainsi les frais concernant le serveur de l'application administrative devrait coùter dans les 3000€. S'ajoute à ça les
+				multiples postes et la gestion du réseau privé d'entreprise on devrait atteindre les 5000€. 
+			</p>
+			<p>
+				Enfin puisque la gestion des réservations sera effectuée par un GDS, les seuls frais à prendre en compte sont les honoraires de celui-ci.
+				De manière générale ces honoraires sont	une petite taxe pour chaque réservation effectuée. 
+				Par expérience, Amadeus SAS facture la réservation d'un billet d'avion à quelques centimes.
+				On devrait avoir un rapport de 100 entre le nombre de réservation et les frais du GDS (Si on vend 10000 billets en un mois on payera au moins 100€)
+				Si on avait opté pour plusieurs serveurs répartis dans le monde devant gérer plusieurs milliers (voire millions en fonction de l'importance
+				de la compagnie) de connexions et de requêtes en même temps, les frais seraient de plusieurs centaines de miliers d'euros.
 			</p>
 			<h2 id="application">IV. L'application serveur</h2>
 			<p>
-			Cette application nous servira principalement à illustrer la base de données créée précédemment en prenant comme exemple un site basique 
-			de compagnie aérienne. D'un point de vue logique, l'application se découpe en deux parties. La première partie est visible par les éventuels
-			clients et la seconde est l'interface d'administration de la base de données.
+				Cette application nous servira principalement à illustrer la base de données créée précédemment en prenant comme exemple un site basique 
+				de compagnie aérienne. D'un point de vue logique, l'application se découpe en deux parties. La première partie est visible par les éventuels
+				clients et la seconde est l'interface d'administration de la base de données.
 			</p>
 			<p>
-			L'application sera programmée en respectant le pattern MVC (modèle, vue, controleur). Pour bien séparer les fichiers sources appartenant aux modèles,
-			aux controleurs, aux vues ou aux ressources de l'application, l'arborescence de notre dossier est constituée de la manière suivante.
+				L'application sera programmée en respectant le pattern MVC (modèle, vue, controleur). Pour bien séparer les fichiers sources appartenant aux modèles,
+				aux controleurs, aux vues ou aux ressources de l'application, l'arborescence de notre dossier est constituée de la manière suivante.
 			</p>
-			<p align="center"><img src="ss_rapport/arbo.png"/></p>
+			<p align="center">
+				<img src="src_rapport/arbo.png"/>
+			</p>
 			<br/>
 			<p>
-			Les fichiers php à la racine du dossier seront les urls vues par les utilisateurs. Dans chacun de ces dossiers, il y a encore une distinction entre les
-			fichiers sources destinés à l'interface publique et ceux destinés à l'interface administrateur. Les fichiers "modèles" sont le lien entre la base de données
-			et notre application. Ils prennent donc en charge la connexion à la base de données et fournissent les différents getter et setters. Les vues ne concernent
-			que l'affichage des pages webs. Elles peuvent contenir du code html et php (comme des "echo" de variables). Enfin, les controleurs servent à faire le lien
-			entre les modèles et les vues. Ils s'occupent de tous les traitements de données, de formulaires. Il servent aussi à sécuriser les entrées utilisateurs.<br/>
-			
-			La syntaxe des différents fichiers est la suivante :
-			<ul><li>nom_vue.php pour une vue</li>
-				<li>nom_controleur pour le controleur correspondant</li>
-				<li>nom.php à la racine du dossier pour le code dont l'utilisateur aura accès</li>
-			</ul>	Les fichiers à la racine ont pour principales fonctions de cacher l'arborescence de notre site à l'utilisateur et de fournir des noms moins confus que
-			nom_vue.php. Par exemple, le fichier accueil.php est le suivant :
+				Les fichiers php à la racine du dossier sont les pages vues par les utilisateurs. Les fichiers "modèles" sont le lien entre la base de données
+				et notre application. Ils prennent donc en charge la connexion à la base de données et fournissent les différents getter et setters. Les vues ne concernent
+				que l'affichage des pages webs. Elles peuvent contenir du code html et php. Enfin, les controleurs servent à faire le lien
+				entre les modèles et les vues. Ils s'occupent de tous les traitements de données, de formulaires. Il servent aussi à sécuriser les entrées utilisateurs.<br/>
 			</p>
-			<p align="center"><img src="ss_rapport/accueilphp.png"/></p>
-			
-			<p>Le fichier controleur correspondant est le suivant:</p>
-			<p align="center"><img src="ss_rapport/accueilcontroleur.png"/></p>
-			
-			<p>Nous pouvons remarquer que le fichier vue correspond est inclus à la fin du controleur. Ce dernier n'est qu'un fichier html/php, qui utilise
-			les variables du controleur. Ces variables peuvent être issues de la base de données grâce aux fonctions des modèles (nous pouvons noter la ligne 
-			include_once(modele/fonctions_mysql.php) ou issues d'un formulaire. 
-			
-			Maintenant que nous avons vu l'architecture de notre application, nous allons 
-			maintenant nous concentrer sur les fonctions de ses deux parties, l'interface utilisateur et l'interface administrateur.
-			
-			<h3 id="public">a. Service public</h3>
 			<p>
-			Cette partie de l'application est la face public du site web de la compagnie aérienne.
+				PHP est un language qui propose les principes de l'orienté objet. Ainsi pour obtenir une architecture professionnelle de l'application
+				la quasi totalité du code est orienté objet. Les seuls fichiers ne respectant pas ce formalisme sont ceux correspondant aux urls. Ces
+				derniers servent de point d'entrée dans l'application est ne requière pas d'être orienté objet.
 			</p>
-			<h3 id="admin">b. Service administrateur</h3>
 			<p>
-			La partie administrateur nous sert à gérer les différentes lignes et les employés. Par exemple, nous pouvons voir la liste des employés, en sélectionner
-			un pour voir les détails le concernant, en modifier ou en supprimer un et finalement en ajouter un. L'interface se présente de la manière suivante.
-			
-			<img src="ss_rapport/listeemployes.png"/>
+				Pour chaque page (fichiers .php à la racine du dossier sources) il existe un objet controleur et un objet vue. Lors de l'ouverture d'un
+				point d'entrée celui-ci appelle le controleur correspondant et lui demande de lui envoyer la page à afficher. Le controleur
+				en question renvoie l'objet correspondant à la vue et la page sera affiché.
+				La syntaxe des différents noms de fichiers est la suivante :
+				<ul><li>&lt;Nom&gt;.php pour un point d'entrée</li>
+					<li>Page&lt;Access&gt;&lt;Nom&gt;Controler.class.php pour le controleur correspondant</li>
+					<li>Page&lt;Access&gt;&lt;Nom&gt;.class.php pour la vue correspondante</li>
+				</ul>
 			</p>
-			
+			<p>
+				Avec &lt;Nom&gt; le nom de la page et &lt;Access&gt; le niveau d'accès requis (i.e. Admin ou Client).
+				Par exemple, le fichier "accueil.php" contient le code suivant :
+			</p>
+			<p align="center">
+				<img src="src_rapport/accueil.png"/>
+			</p>
+			<p>
+				On peut voir la construction du controleur correspondant à la ligne 3. Suivi de l'appel à la fonction "getPage()" permettant
+				d'obtenir l'objet de la vue correspondante. Celle-ci étant finalement affichée à la ligne 5.
+			</p>
+			<p>
+				La partie publique permet à n'importe quel utilisateur de
+				voir les différents vols disponibles en fonction de la date et des aéroports de départ et de destination. Cette page permettrait
+				également de demander à réserver un billet d'avions cependant la fonctionnalité n'a pas été intégrée. Ceci est dû au fait que la
+				réservation d'un billet d'avion nécessite que toute la partie administrative de l'application soit terminée et ce n'est pas le cas.
+			</p>
+			<p>
+				Les pages concernées sont les suivantes :
+				<ul><li><a href="sources/accueil.php">L'accueil</a></li>
+					<li><a href="sources/frontc.php">La présentation</a></li>
+					<li><a href="sources/contact.php">Les contact</a></li>
+				</ul>
+			</p>
+			<p>
+				En tant qu'utilisateur commun les données de la BD ne sont accessibles qu'en lecture (SELECT) et certaines informations confidentielles
+				(e.g. détails sur les employés) ne sont pas accessibles. Ceci est simplement géré par l'objet "DBConnexion" du modèle qui se connectera
+				à la base de données avec un login par défault dont les droits sont très limités. L'inaccessibilité à certaines données n'est pas directement
+				gérer par le SGBD mais par les objets "DBAdminAccess" et "DBClientAccess" qui contiennent les différentes requêtes utilisées.
+			</p>
+			<p>
+				La partie administrateur sert à modifier directement les données de la BD. Par exemple, nous pouvons voir la liste des employés, en sélectionner
+				un pour voir les détails le concernant, en supprimer un ou finalement en ajouter un. L'interface est composé des urls suivantes :
+				<ul><li><a href="sources/admin.php">L'accueil</a></li>
+					<li><a href="sources/fronta.php">La présentation</a></li>
+					<li><a href="sources/employe.php">Les employés</a></li>
+					<li><a href="sources/avion.php">Les avions</a></li>
+					<li><a href="sources/liaison.php">Les liaisons entre aéroports</a></li>
+					<li><a href="sources/vol.php">Les vols</a></li>
+				</ul>
+			</p>
+			<p>
+				On remarquera que les fonctionnalité demandé dans le cahier des charges ne sont pas toutes présentes. Il manque notamment la gestion
+				des membres d'équipages et des équipes, des vols hebdomadaires, des billets et des passagers. Ceci est dû à une
+				mauvaise évaluation de la charge de travail que représente la conception d'un application telle que celle-ci. En effet, si la
+				construction d'un modèle relationnelle de base de données a été rapide, sa mise en pratique et son interaction avec une
+				application est beaucoup plus complexe. S'ajoute à cela la prise en main du langage de programmation et la conception
+				de l'architecture pour réaliser un travail le plus professionnel possible. Néansmoins toutes les fonctionnalités présentes dans l'application
+				finale sont opérationnelles et ont fait l'objet de tests pour en vérifier la robustesse.
+			</p>
 			<h2 id="conclusion">Conclusion</h2>
 			<p>
-			
+				L'expèrience apportée par ce bureau d'étude a été très enrichissante en terme de connaissances techniques des langages de programmations
+				mais aussi de conception d'application web, de gestion de projet et de fonctionnement des bases de données. La réalisation de ce travail
+				n'a pas abouti sur une application complète mais elle a été faite avec le désire d'obtenir un résultat professionnel. Ceci-ci nous a
+				également permis de réévaluer la difficulté et la charge de travail que présente la construction d'une application d'entreprise. D'autant
+				plus que certains aspect de la conception n'ont été que survolés, par exemple la sécurité, l'ergonomie, l'esthétique, le stress des serveurs, etc.
+				Finalement il sera toujours possible d'améliorer cette application en lui ajoutant d'abord les fonctionnalités manquantes et en 
+				poursuivant avec de nouvelles. L'interaction de cette application avec un GDS pourrait être une fonctionnalité des plus utiles par exemple.
 			</p>
 		</div>
 	</body>
