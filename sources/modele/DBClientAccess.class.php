@@ -88,6 +88,15 @@ class DBClientAccess {
 		$vols = $req->fetchAll();
 		return $vols;
 	}
+	
+	public function find_allvols(){
+		DBConnexion::clientConnexion();
+		$bdd = DBConnexion::getBDD();
+		$req = $bdd->prepare('SELECT * FROM vol');
+		$req->execute();
+		$vols = $req->fetchAll();
+		return $vols;
+	}
 
 	//GET POUR LES DIFFERENTES TABLES
 	//aeroport
@@ -130,6 +139,22 @@ class DBClientAccess {
 		$req->execute(array($id));
 		$aeroports = $req->fetchAll();
 		return $aeroports;
+	}
+	
+	public function get_periodList(){
+		DBConnexion::clientConnexion();
+		$bdd = DBConnexion::getBDD();
+		$req = $bdd->prepare('SELECT * From periodes');
+		$req->execute();
+		return $req->fetchAll();
+	}
+	
+	public function getListVols(){
+		DBConnexion::clientConnexion();
+		$bdd = DBConnexion::getBDD();
+		$req = $bdd->prepare('SELECT * From volnom');
+		$req->execute();
+		return $req->fetchAll();
 	}
 }
 ?>

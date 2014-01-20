@@ -11,7 +11,7 @@ class PageAdminDetailEmploye extends AbstractAdminHtmlPage {
 		?><div class="container">
 			<div class="row-fluid">
 				<div class="span2">
-					<img src="Ressources/photoid.png"/>	
+					<img src="ressources/img/photoid.png"/>	
 				</div>
 				<div class="span6">
 					<?php 

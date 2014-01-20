@@ -131,5 +131,24 @@ class DBAdminAccess extends DBClientAccess {
 		$req = $bdd->prepare('DELETE FROM liaisons WHERE idliaison = '.$idLiaison);
 		$req->execute();
 	}
+	
+	public function create_vol($vol){
+		DBConnexion::adminConnexion();
+		$bdd = DBConnexion::getBDD();
+		$req = $bdd->prepare('INSERT INTO vol(idvol,avions_immatricule,idliaison,idperiode,hdepart,harrivee) VALUES (NULL,:avion,:liaison,:period,:hdep,:harr)');
+		$req->bindParam(':avion',$vol['avion']);
+		$req->bindParam(':liaison',$vol['liaison']);
+		$req->bindParam(':period',$vol['period']);
+		$req->bindParam(':hdep',$vol['heureDep']);
+		$req->bindParam(':harr',$vol['heureArr']);
+		$req->execute();
+	}
+	
+	public function delete_vol($vol){
+		DBConnexion::adminConnexion();
+		$bdd = DBConnexion::getBDD();
+		$req = $bdd->prepare('DELETE FROM vol WHERE idvol = '.$vol);
+		$req->execute();
+	}
 }
 ?>

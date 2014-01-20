@@ -9,6 +9,7 @@ class DefaultAdminMenu implements HtmlPart {
 		$menu->addItem('Employees','./employe.php');
 		$menu->addItem('Avions','./avion.php');
 		$menu->addItem('Liaisons','./liaison.php');
+		$menu->addItem('Vols','./vol.php');
 		$menu->insert();
 	}
 }
